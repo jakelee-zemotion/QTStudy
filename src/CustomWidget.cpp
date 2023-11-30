@@ -1,6 +1,7 @@
 #include "CustomWidget.h"
 #include "CustomItemDelegate.h"
 #include "CustomEventFilter.h"
+#include "CustomItemModel.h"
 
 #include <QPushButton>
 #include <QRadioButton>
@@ -60,9 +61,14 @@ CustomWidget::CustomWidget()
 
 	// QListView
 	qListView = new QListView();
+
+	CustomItemModel* customItemModel = new CustomItemModel();
+
 	QStringListModel* qstrListModel = new QStringListModel();
 	qstrListModel->setStringList(qstrList);
-	qListView->setModel(qstrListModel);
+
+
+	qListView->setModel(customItemModel);
 
 
 	customItemDelegate = new CustomItemDelegate();

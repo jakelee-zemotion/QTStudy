@@ -11,6 +11,8 @@
 #include <QListWidget>
 #include <QStringListModel>
 #include <QTimer>
+#include <QTableView>
+#include <QStandardItemModel>
 
 CustomWidget::CustomWidget()
 {
@@ -64,19 +66,32 @@ CustomWidget::CustomWidget()
 
 	CustomItemModel* customItemModel = new CustomItemModel();
 
+	QStandardItemModel* qm = new QStandardItemModel(4, 4);
+	QModelIndex index = qm->index(0, 0, QModelIndex());
+	qm->setData(index, 100);
+
+
 	QStringListModel* qstrListModel = new QStringListModel();
 	qstrListModel->setStringList(qstrList);
+	//qDebug() << qstrL
 
+	//QModelIndex index = customItemModel->index(0, 0, QModelIndex());
+	//customItemModel->setData(index, 1);
+
+
+	QTableView* qq = new QTableView();
+	qq->setModel(customItemModel);
+	qvlayout->addWidget(qq);
 
 	qListView->setModel(customItemModel);
-
+	qvlayout->addWidget(qListView);
 
 	customItemDelegate = new CustomItemDelegate();
 	qListView->setItemDelegate(customItemDelegate);
 
 	connect(customItemDelegate, SIGNAL(ItemClicked()), this, SLOT(showMessageBox()));
-		
-	qvlayout->addWidget(qListView);
+
+
 
 
 	// QTimer
